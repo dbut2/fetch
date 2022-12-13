@@ -35,9 +35,7 @@ Set up your arguments, eg
 fetch --files=puzzle.md --ide=goland --year=2020 --day=01 --template=template
 ```
 
-Optionally create an alias run quicker
-```shell
-alias f="fetch --files=puzzle.md --ide=goland --template=template"
-```
-
-Optionally provide 
+The following env vars are also supported to override default values
+- `FETCH_TEMPLATE`
+- `FETCH_FILES`
+- `FETCH_IDE`

@@ -21,9 +21,9 @@ var files string
 func main() {
 	flag.IntVar(&day, "day", today(), "day to download puzzle for")
 	flag.IntVar(&year, "year", time.Now().Year(), "year to download puzzle for")
-	flag.StringVar(&template, "template", "template", "template folder")
-	flag.StringVar(&ide, "ide", "goland", "ide command to open files, must support opening files like \"$ {IDE} example\"")
-	flag.StringVar(&files, "files", "puzzle.md", "comma seperated list of files to open automatically")
+	flag.StringVar(&template, "template", osOr("FETCH_TEMPLATE", "template"), "template folder")
+	flag.StringVar(&ide, "ide", osOr("FETCH_IDE", "goland"), "ide command to open files, must support opening files like \"$ {IDE} example\"")
+	flag.StringVar(&files, "files", osOr("FETCH_FILES", "puzzle.md"), "comma seperated list of files to open automatically")
 	flag.Parse()
 
 	if year < 100 {
@@ -75,4 +75,11 @@ func today() int {
 		d--
 	}
 	return d
+}
+
+func osOr(env string, def string) string {
+	if val := os.Getenv(env); val != "" {
+		return val
+	}
+	return def
 }
