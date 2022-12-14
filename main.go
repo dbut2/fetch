@@ -69,12 +69,8 @@ func main() {
 
 // today date, or yesterday if ahead of ETC
 func today() int {
-	d := time.Now().Day()
 	tz := time.FixedZone("ETC", -5*60*60)
-	if time.Now().Day() > time.Now().In(tz).Day() {
-		d--
-	}
-	return d
+	return time.Now().In(tz).Day()
 }
 
 func osOr(env string, def string) string {
